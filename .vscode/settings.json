@@ -1,0 +1,24 @@
+{
+  "cSpell.words": [
+    "antfu",
+    "demi",
+    "esno",
+    "ffflorian",
+    "kolorist",
+    "typecheck",
+    "unocss",
+    "unplugin",
+    "Vitesse",
+    "webext",
+    "webextension"
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "vite.autoStart": false,
+  "eslint.experimental.useFlatConfig": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "files.associations": {
+    "*.css": "postcss"
+  }
+}
