@@ -1,30 +1,32 @@
-/* eslint-disable no-console */
-import { onMessage } from 'webext-bridge/content-script'
-import { createApp } from 'vue'
-import App from './views/App.vue'
-import { setupApp } from '~/logic/common-setup'
+import { onMessage, sendMessage } from 'webext-bridge/content-script'
 
-// Firefox `browser.tabs.executeScript()` requires scripts return a primitive value
 (() => {
-  console.info('[vitesse-webext] Hello world from content script')
+  let currentTheme: Theme | null = null
 
-  // communication example: send previous tab title from background page
-  onMessage('tab-prev', ({ data }) => {
-    console.log(`[vitesse-webext] Navigate from page "${data.title}"`)
+  function updateTheme(theme: Theme) {
+    if (currentTheme === theme)
+      return
+
+    currentTheme = theme
+
+    if (theme === 'dark') {
+      document.documentElement.classList.remove('light')
+      document.documentElement.classList.add('dark')
+      document.body.style.colorScheme = 'dark'
+    }
+
+    else {
+      document.documentElement.classList.remove('dark')
+      document.documentElement.classList.add('light')
+      document.body.style.colorScheme = 'light'
+    }
+  }
+
+  sendMessage<Theme>('get-theme', {}).then((theme) => {
+    updateTheme(theme)
   })
 
-  // mount component to context window
-  const container = document.createElement('div')
-  container.id = __NAME__
-  const root = document.createElement('div')
-  const styleEl = document.createElement('link')
-  const shadowDOM = container.attachShadow?.({ mode: __DEV__ ? 'open' : 'closed' }) || container
-  styleEl.setAttribute('rel', 'stylesheet')
-  styleEl.setAttribute('href', browser.runtime.getURL('dist/contentScripts/style.css'))
-  shadowDOM.appendChild(styleEl)
-  shadowDOM.appendChild(root)
-  document.body.appendChild(container)
-  const app = createApp(App)
-  setupApp(app)
-  app.mount(root)
+  onMessage<Theme>('set-theme', (theme) => {
+    updateTheme(theme.data)
+  })
 })()

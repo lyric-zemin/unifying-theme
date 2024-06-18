@@ -1,10 +1,14 @@
 {
   "cSpell.words": [
     "antfu",
+    "Attributify",
+    "composables",
     "demi",
     "esno",
     "ffflorian",
+    "fontisto",
     "kolorist",
+    "pixelarticons",
     "typecheck",
     "unocss",
     "unplugin",
@@ -14,7 +18,7 @@
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
   "vite.autoStart": false,
-  "eslint.experimental.useFlatConfig": true,
+  "eslint.useFlatConfig": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },

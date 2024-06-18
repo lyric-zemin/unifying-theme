@@ -1,22 +1,16 @@
 <script setup lang="ts">
-import { storageDemo } from '~/logic/storage'
-
-function openOptionsPage() {
-  browser.runtime.openOptionsPage()
-}
+import { theme } from '~/logic/storage'
 </script>
 
 <template>
-  <main class="w-[300px] px-4 py-5 text-center text-gray-700">
+  <main class="w-[200px] px-4 py-5 text-center text-gray-700">
     <Logo />
-    <div>Popup</div>
-    <SharedSubtitle />
+    <div>点击切换主题</div>
 
-    <button class="btn mt-2" @click="openOptionsPage">
-      Open Options
-    </button>
-    <div class="mt-2">
-      <span class="opacity-50">Storage:</span> {{ storageDemo }}
+    <div flex="~ gap-2 justify-center">
+      <button class="btn mt-2" @click="theme = theme === 'dark' ? 'light' : 'dark'">
+        {{ theme === 'dark' ? '深色' : '浅色' }}
+      </button>
     </div>
   </main>
 </template>
